@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Hubbub</string>
+    <string name="action_settings">Settings</string>
+    <string name="user_id">Enter User Id</string>
+    <string name="metric">Enter Metric Value</string>
+    <string name="confirm">Send</string>
+    <string name="title_activity_send_data_to_hub">SendDataToHub</string>
+    <string name="sending_data">Sending Data&#8230;</string>
+
+</resources>

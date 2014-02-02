@@ -1,16 +1,19 @@
 package com.example.hubbub_merchant;
 
-import com.example.hubbub.R;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.content.Intent;
-import android.os.Build;
+
+import com.example.hubbub.R;
 
 public class SendDataToHub extends Activity {
 
@@ -30,6 +33,16 @@ public class SendDataToHub extends Activity {
 		
 		displayUserIdView.setText("Sending User ID: " + userId);
 		displayMetricView.setText("Sending Metric: " + metricValue);
+		
+		JSONObject requestObject = new JSONObject();
+		try {
+			requestObject.put("userId", userId);
+			requestObject.put("metricValue", metricValue);
+		} catch (JSONException e) {
+			System.out.println(e.getMessage().toString());
+		}
+		
+		HubApi.write(requestObject);
 	}
 
 	/**
@@ -65,5 +78,5 @@ public class SendDataToHub extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 }

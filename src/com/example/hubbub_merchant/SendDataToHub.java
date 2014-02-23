@@ -34,15 +34,7 @@ public class SendDataToHub extends Activity {
 		displayUserIdView.setText("Sending User ID: " + userId);
 		displayMetricView.setText("Sending Metric: " + metricValue);
 		
-		JSONObject requestObject = new JSONObject();
-		try {
-			requestObject.put("userId", userId);
-			requestObject.put("metricValue", metricValue);
-		} catch (JSONException e) {
-			System.out.println(e.getMessage().toString());
-		}
-		
-		HubApi.write(requestObject);
+		HubApi.write(userId, metricValue);
 	}
 
 	/**

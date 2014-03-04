@@ -28,13 +28,15 @@ public class SendDataToHub extends Activity {
 		String userId = intent.getStringExtra(FullscreenActivity.EXTRA_USER_ID);
 		String metricValue = intent.getStringExtra(FullscreenActivity.EXTRA_METRIC_VALUE);
 		
-		TextView displayUserIdView = (TextView) findViewById(R.id.display_user_id);
-		TextView displayMetricView = (TextView)findViewById(R.id.display_metric);
-		
-		displayUserIdView.setText("Sending User ID: " + userId);
-		displayMetricView.setText("Sending Metric: " + metricValue);
-		
-		HubApi.write(userId, metricValue);
+		try {
+			intent = new Intent(this, FullscreenActivity.class);
+			HubApi.write(userId, metricValue);
+			Thread.sleep(2000);
+			startActivity(intent);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

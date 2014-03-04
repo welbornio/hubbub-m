@@ -1,47 +1,28 @@
 package com.example.hubbub_merchant;
 
 import java.io.InputStream;
-import java.security.KeyFactory;
-import java.security.PublicKey;
-import java.security.spec.X509EncodedKeySpec;
-
-import javax.crypto.Cipher;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 import android.os.Looper;
 
 public class HubApi {
 	
-	final String publicKeyString = "MCIwDQYJKoZIhvcNAQEBBQADEQAwDgIJAMVbnWIwX5q1AgED";
-	static PublicKey publicKey = null;
+	public static HttpResponse theResponse;
 	
 	public HubApi() {
-		KeyFactory fact;
-		X509EncodedKeySpec spec;
-		try {
-			byte[] data = publicKeyString.getBytes();
-		    spec = new X509EncodedKeySpec(data);	
-		    fact = KeyFactory.getInstance("RSA");
-		    publicKey = fact.generatePublic(spec);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 	
-	public static void write(String userIdVal, String metricVal) {
-		
-		final String thisMerchantId = "34321ssrtl";
-		
-		final String userId = userIdVal;
-		final String metric = metricVal;
+	public static HttpResponse write(final String userId, final String metric) {
 		
 		new Thread(new Runnable() {
 			public void run() {
@@ -51,30 +32,31 @@ public class HubApi {
 		        HttpResponse response;
 		        Looper.prepare();
 		        
-		        HttpPost post = new HttpPost("http://hubbubapp.herokuapp.com/api/v1/interactions");
-		        JSONObject parentData = new JSONObject();
-		        JSONObject childData = new JSONObject();
+		        HttpPost post = new HttpPost("https://hubbubapp.herokuapp.com/api/v1/interactions");
+		        JSONObject data = new JSONObject();
 		        
 		        try {
-		        	parentData.put("merchantId", thisMerchantId);
-		        	
-		        	Cipher cipher = Cipher.getInstance("RSA");
-		        	cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-
-		            childData.put("clientId", userId);
-		            childData.put("metric", metric);
-		            parentData.put("data", cipher.doFinal(childData.toString().getBytes()).toString());
+		        	data.put("merchantId", "7JnFMxKT86bKBl66i6ZR");
+		        	data.put("clientId", userId);
+		        	data.put("metric", metric);
 		            
-		            post.setEntity( new ByteArrayEntity(parentData.toString().getBytes("UTF8")) );
+		        	StringEntity se = new StringEntity(data.toString());
+		        	se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+		            post.setEntity(se);
 		            response = client.execute(post);
 		            
 		            /*Checking response */
-		            if(response!=null){
+		            if(response != null){
+		            	HubApi.theResponse = response;
 		                InputStream in = response.getEntity().getContent(); //Get the data in the entity
 		            }
+		            
 		        }
 		        catch(Exception e) {
 		        	e.printStackTrace();
+		        }
+		        finally {
+		        	
 		        }
 		        
 		        Looper.loop();
@@ -82,6 +64,8 @@ public class HubApi {
 			}
 		}).start();
 		
+		Thread.yield();
+		return theResponse;
 	}
 	
 }

@@ -38,6 +38,7 @@
     <EditText android:id="@+id/metric"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:hint="@string/metric" />
     
     <Button

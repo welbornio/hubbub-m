@@ -118,7 +118,7 @@ public class GetModels extends AsyncTask<String, Void, ArrayList<String>> {
         else {
         	dropdown = this.clientSpinner;
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.act, android.R.layout.simple_spinner_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.act, R.layout.spinner_layout, items);
         adapter.setDropDownViewResource(R.layout.spinner_layout);
         dropdown.setAdapter(adapter);
     }

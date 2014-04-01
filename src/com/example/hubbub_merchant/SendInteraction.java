@@ -12,7 +12,11 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
+import android.R;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class SendInteraction extends AsyncTask<Void, Void, String> {
@@ -23,10 +27,12 @@ public class SendInteraction extends AsyncTask<Void, Void, String> {
 	String metric;
 	FullscreenActivity act;
 	TextView tView;
+	EditText mView;
 	
-	public SendInteraction(FullscreenActivity a, TextView tv, String clientN, String clientI, String merchantN, String merchantI, String m) {
+	public SendInteraction(FullscreenActivity a, TextView tv, EditText metV, String clientN, String clientI, String merchantN, String merchantI, String m) {
 		this.act = a;
 		this.tView = tv;
+		this.mView = metV;
 		this.clientName = clientN;
 		this.clientId = clientI;
 		this.merchantName = merchantN;
@@ -79,6 +85,19 @@ public class SendInteraction extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String cmd) {
     	if (cmd.equals("fin")) {
     		this.tView.setText("");
+    		this.mView.setText("");
+    		
+    		new AlertDialog.Builder(this.act)
+    	      .setMessage("Your interaction was sent successfully.")
+    	      .setTitle("Well done.")
+    	      .setCancelable(true)
+    	      .setNegativeButton("Great!",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                })
+    	      .show();
+    		
     	}
     }
 

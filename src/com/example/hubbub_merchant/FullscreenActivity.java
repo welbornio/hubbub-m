@@ -1,22 +1,13 @@
 package com.example.hubbub_merchant;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.HttpResponse;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -62,7 +53,7 @@ public class FullscreenActivity extends Activity {
     	String merchantName = merchantSpinner.getSelectedItem().toString();
     	String metricValue = metricView.getText().toString();
 
-    	new SendInteraction(this, displaySending, clientName, clientMap.get(clientName).id, merchantName, merchantMap.get(merchantName).id, metricValue).execute();
+    	new SendInteraction(this, displaySending, metricView, clientName, clientMap.get(clientName).id, merchantName, merchantMap.get(merchantName).id, metricValue).execute();
     }
     
 }

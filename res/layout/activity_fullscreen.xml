@@ -9,6 +9,32 @@
     android:orientation="vertical"
     tools:context=".FullscreenActivity" >
     
+    <TextView android:id="@+id/merchant_label"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+        android:text="@string/merchant_prompt" />
+    
+    <Spinner
+    android:id="@+id/spinner_merchant"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:drawable/btn_dropdown"
+    android:spinnerMode="dialog"
+    android:textSize="40dip" />
+    
+    <TextView android:id="@+id/client_label"
+       	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+        android:text="@string/client_prompt" />
+    
+    <Spinner
+    android:id="@+id/spinner_client"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:drawable/btn_dropdown"
+    android:spinnerMode="dialog"
+    android:textSize="40dip" />
+    
     <EditText android:id="@+id/user_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

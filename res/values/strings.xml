@@ -8,5 +8,8 @@
     <string name="confirm">Send</string>
     <string name="title_activity_send_data_to_hub">SendDataToHub</string>
     <string name="sending_data">Sending Data&#8230;</string>
+    <string name="merchant_prompt">Select Merchant</string>
+    <string name="client_prompt">Select Client</string>
+    
 
 </resources>

@@ -94,18 +94,12 @@ public class GetModels extends AsyncTask<String, Void, ArrayList<String>> {
         	        }
                 }
                 catch (Exception e) {
-                	StringWriter sw = new StringWriter();
-                	e.printStackTrace(new PrintWriter(sw));
-                	String exceptionAsString = sw.toString();
-                	System.out.println("Error out: " + exceptionAsString);
+                	PrintException.print(e);
                 }
             }
         }
         catch (Exception e){
-        	StringWriter sw = new StringWriter();
-        	e.printStackTrace(new PrintWriter(sw));
-        	String exceptionAsString = sw.toString();
-        	System.out.println("Error out: " + exceptionAsString);
+        	PrintException.print(e);
         }
         
         return items;

@@ -34,12 +34,7 @@
     android:background="@android:drawable/btn_dropdown"
     android:spinnerMode="dialog"
     android:textSize="40dip" />
-    
-    <EditText android:id="@+id/user_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/user_id" />
-    
+ 
     <EditText android:id="@+id/metric"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

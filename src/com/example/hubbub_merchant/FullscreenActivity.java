@@ -61,24 +61,8 @@ public class FullscreenActivity extends Activity {
     	String clientName = clientSpinner.getSelectedItem().toString();
     	String merchantName = merchantSpinner.getSelectedItem().toString();
     	String metricValue = metricView.getText().toString();
-    	
-    	System.out.println("Selected client is: " + clientName + "\nAnd Selected merchant: " + merchantName);
-    	
-    	Intent intent = new Intent(this, FullscreenActivity.class);
-    	try{
-    		HttpResponse response;
-    		response = HubApi.write(clientName, "1", merchantName, "1", metricValue);
-    		Thread.sleep(2000);
-//    		intent.putExtra(EXTRA_USER_ID, userId);
-//        	intent.putExtra(EXTRA_METRIC_VALUE, metricValue);
-    		System.out.println(response.toString());
-    	}
-    	catch (Exception e) {
-    		e.printStackTrace();
-    	}
-    	finally {
-    		startActivity(intent);
-    	}
+
+    	new SendInteraction(this, displaySending, clientName, clientMap.get(clientName).id, merchantName, merchantMap.get(merchantName).id, metricValue).execute();
     }
     
 }

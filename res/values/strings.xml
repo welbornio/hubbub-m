@@ -6,6 +6,7 @@
     <string name="user_id">Enter User Id</string>
     <string name="metric">Enter Metric Value</string>
     <string name="confirm">Send</string>
+    <string name="refresh">Refresh</string>
     <string name="title_activity_send_data_to_hub">SendDataToHub</string>
     <string name="sending_data">Sending Data&#8230;</string>
     <string name="merchant_prompt">Select Merchant</string>

@@ -55,7 +55,7 @@ public class SendInteraction extends AsyncTask<Void, Void, String> {
         	data.put("clientName", this.clientName);
         	data.put("clientId", this.clientId);
         	data.put("metric", metric);
-        	data.put("timestamp", System.currentTimeMillis() / 1000L);
+        	data.put("timestamp", System.currentTimeMillis());
             
         	StringEntity se = new StringEntity(data.toString());
         	se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));

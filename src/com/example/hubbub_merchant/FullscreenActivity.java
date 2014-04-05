@@ -19,19 +19,26 @@ public class FullscreenActivity extends Activity {
 	public final static String EXTRA_USER_ID = "com.example.hubbub.USER_ID";
 	public final static String EXTRA_METRIC_VALUE = "com.example.hubbub.METRIC_VALUE";
 	
-	public static Map<String, Model> clientMap = new HashMap();
-	public static Map<String, Model> merchantMap = new HashMap();
+	public static Map<String, Model> clientMap = new HashMap<String, Model>();
+	public static Map<String, Model> merchantMap = new HashMap<String, Model>();
 	
-	private Handler mHandler = new Handler();
-
-    @Override
+	private final static int INTERVAL = 1000 * 10; // 10 seconds
+	Handler mHandler;
+	
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
-        
-        new GetModels(this, (Spinner)findViewById(R.id.spinner_client), (Spinner)findViewById(R.id.spinner_merchant)).execute("getClients");
+ 
+    
+        getInformation(getWindow().getDecorView().findViewById(android.R.id.content));
+	}
+	
+	
+	public void getInformation(View view) {
+		new GetModels(this, (Spinner)findViewById(R.id.spinner_client), (Spinner)findViewById(R.id.spinner_merchant)).execute("getClients");
         new GetModels(this, (Spinner)findViewById(R.id.spinner_client), (Spinner)findViewById(R.id.spinner_merchant)).execute("getMerchants");
-    }
+	}
 
 
     @Override
@@ -40,6 +47,7 @@ public class FullscreenActivity extends Activity {
         getMenuInflater().inflate(R.menu.fullscreen, menu);
         return true;
     }
+    
     
     public void sendData(View view) {
     	TextView displaySending = (TextView)findViewById(R.id.display_sending);

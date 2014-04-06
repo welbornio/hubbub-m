@@ -17,6 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.R.bool;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Looper;
 import android.widget.ArrayAdapter;
@@ -29,11 +31,13 @@ public class GetModels extends AsyncTask<String, Void, ArrayList<String>> {
 	Spinner clientSpinner;
 	Spinner merchantSpinner;
 	boolean clients;
+	boolean called;
 	
-	public GetModels(FullscreenActivity a, Spinner cSpin, Spinner mSpin) {
+	public GetModels(FullscreenActivity a, Spinner cSpin, Spinner mSpin, boolean call) {
 		this.act = a;
 		this.clientSpinner = cSpin;
 		this.merchantSpinner = mSpin;
+		this.called = call;
 	}
 	
 	@Override
@@ -85,10 +89,10 @@ public class GetModels extends AsyncTask<String, Void, ArrayList<String>> {
         	        for(int n = 0; n < array.length(); n++) {
         	            JSONObject object = array.getJSONObject(n);
         	            if (type.equals("merchants")) {
-        	            	act.merchantMap.put(object.getString("username"), new Model(object.getString("username"), "example", object.getString("_id")));
+        	            	act.merchantMap.put(object.getString("username"), new Model(object.getString("username"), object.getString("secretKey"), object.getString("_id")));
         	            }
         	            else {
-        	            	act.clientMap.put(object.getString("username"), new Model(object.getString("username"), "example", object.getString("_id")));
+        	            	act.clientMap.put(object.getString("username"), new Model(object.getString("username"), "MODEL_NO_KEY", object.getString("_id")));
         	            }
         	            items.add(object.getString("username"));
         	        }
@@ -121,6 +125,19 @@ public class GetModels extends AsyncTask<String, Void, ArrayList<String>> {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.act, R.layout.spinner_layout, items);
         adapter.setDropDownViewResource(R.layout.spinner_layout);
         dropdown.setAdapter(adapter);
+        
+        if (this.called && !this.clients) {
+	        new AlertDialog.Builder(this.act)
+		      .setMessage("You are now up to date.")
+		      .setTitle("Users updated.")
+		      .setCancelable(true)
+		      .setNegativeButton("Thanks!",new DialogInterface.OnClickListener() {
+	              public void onClick(DialogInterface dialog,int id) {
+	                  dialog.cancel();
+	              }
+	          })
+		      .show();
+        }
     }
 
 }

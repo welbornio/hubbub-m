@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -36,8 +38,14 @@ public class FullscreenActivity extends Activity {
 	
 	
 	public void getInformation(View view) {
-		new GetModels(this, (Spinner)findViewById(R.id.spinner_client), (Spinner)findViewById(R.id.spinner_merchant)).execute("getClients");
-        new GetModels(this, (Spinner)findViewById(R.id.spinner_client), (Spinner)findViewById(R.id.spinner_merchant)).execute("getMerchants");
+		new GetModels(this, (Spinner)findViewById(R.id.spinner_client), (Spinner)findViewById(R.id.spinner_merchant), false).execute("getClients");
+        
+		if (null != view.getTag() && view.getTag().equals("called")) {
+			new GetModels(this, (Spinner)findViewById(R.id.spinner_client), (Spinner)findViewById(R.id.spinner_merchant), true).execute("getMerchants");
+		}
+		else {
+			new GetModels(this, (Spinner)findViewById(R.id.spinner_client), (Spinner)findViewById(R.id.spinner_merchant), false).execute("getMerchants");
+		}
 	}
 
 
@@ -61,7 +69,7 @@ public class FullscreenActivity extends Activity {
     	String merchantName = merchantSpinner.getSelectedItem().toString();
     	String metricValue = metricView.getText().toString();
 
-    	new SendInteraction(this, displaySending, metricView, clientName, clientMap.get(clientName).id, merchantName, merchantMap.get(merchantName).id, metricValue).execute();
+    	new SendInteraction(this, displaySending, metricView, clientName, clientMap.get(clientName).id, merchantName, merchantMap.get(merchantName).id, merchantMap.get(merchantName).key, metricValue).execute();
     }
     
 }

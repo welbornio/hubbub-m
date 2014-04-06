@@ -24,12 +24,13 @@ public class SendInteraction extends AsyncTask<Void, Void, String> {
 	String clientId;
 	String merchantName;
 	String merchantId;
+	String merchantKey;
 	String metric;
 	FullscreenActivity act;
 	TextView tView;
 	EditText mView;
 	
-	public SendInteraction(FullscreenActivity a, TextView tv, EditText metV, String clientN, String clientI, String merchantN, String merchantI, String m) {
+	public SendInteraction(FullscreenActivity a, TextView tv, EditText metV, String clientN, String clientI, String merchantN, String merchantI, String merchantK, String m) {
 		this.act = a;
 		this.tView = tv;
 		this.mView = metV;
@@ -37,6 +38,7 @@ public class SendInteraction extends AsyncTask<Void, Void, String> {
 		this.clientId = clientI;
 		this.merchantName = merchantN;
 		this.merchantId = merchantI;
+		this.merchantKey = merchantK;
 		this.metric = m;
 	}
 	
@@ -52,6 +54,7 @@ public class SendInteraction extends AsyncTask<Void, Void, String> {
         try {
         	data.put("merchantName", this.merchantName);
         	data.put("merchantId", this.merchantId);
+        	data.put("merchantSecretKey", this.merchantKey);
         	data.put("clientName", this.clientName);
         	data.put("clientId", this.clientId);
         	data.put("metric", metric);
